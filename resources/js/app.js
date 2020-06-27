@@ -4,12 +4,16 @@
  * building robust, powerful web applications using Vue and Laravel.
  */
 
+
 require('./bootstrap')
 
 window.Vue = require('vue')
 
 import Vuex from 'vuex'
 Vue.use(Vuex)
+
+import VueObserveVisibility from "vue-observe-visibility";
+Vue.use(VueObserveVisibility)
 
 /**
  * The following block of code may be used to automatically register your
