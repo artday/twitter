@@ -17,8 +17,8 @@
 
     <script>
         window.User = {
-            id: {{ auth()->user()->id ?? null }},
-            avatar: '{{ auth()->user()->avatar() ?? null }}'
+            id: {{ optional(auth()->user())->id }},
+            avatar: '{{ optional(auth()->user())->avatar() }}'
         }
     </script>
 </head>
