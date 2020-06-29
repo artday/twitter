@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Tweet extends Model
 {
-    protected $fillable = ['body'];
+    protected $fillable = ['body', 'type'];
 
     public function user()
     {
