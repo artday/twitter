@@ -3,7 +3,7 @@
         <div class="mr-3">
             <img :src="tweet.user.avatar" alt="" class="w-12 rounded-full">
         </div>
-        <div>
+        <div class="flex-grow">
             <app-tweet-username :user="tweet.user" />
             <p class="text-gray-300 whitespace-pre-wrap">{{ tweet.body }}</p>
         </div>
