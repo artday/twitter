@@ -9,13 +9,18 @@
                             0-5.66-5.66l-1.46 1.47a1 1 0 0 1-1.42
                             0L9.83 5.17a4 4 0 1 0-5.66 5.66L12 18.66l7.83-7.83z"/>
         </svg>
-        <span class="text-gray-600">0</span>
+        <span class="text-gray-600">{{ tweet.likes_count }}</span>
     </a>
 </template>
 
 <script>
     export default {
-        name: "AppTweetLikeAction"
+        props: {
+            tweet: {
+                required: true,
+                type: Object
+            }
+        }
     }
 </script>
 
