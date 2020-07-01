@@ -11,6 +11,8 @@
                 class="border rounded-lg mt-4"
                 :tweet="tweet.original_tweet"
             />
+
+            <app-tweet-action-group />
         </div>
     </div>
 </template>
