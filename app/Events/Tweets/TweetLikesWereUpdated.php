@@ -29,7 +29,7 @@ class TweetLikesWereUpdated implements ShouldBroadcast
     {
         return [
             'id' => $this->tweet->id,
-            'user_id' => $this->tweet->id,
+            'user_id' => $this->user->id,
             'likes_count' => $this->tweet->likes->count(),
         ];
     }
