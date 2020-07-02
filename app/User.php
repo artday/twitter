@@ -36,4 +36,56 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function avatar()
+    {
+        return 'https://www.gravatar.com/avatar/' . md5($this->email) . '?d=mp';
+    }
+
+    public function hasLiked(Tweet $tweet)
+    {
+        return $this->likes->contains('tweet_id', $tweet->id);
+    }
+
+    public function tweets()
+    {
+        return $this->hasMany(Tweet::class);
+    }
+
+    public function following()
+    {
+        return $this->belongsToMany(
+            User::class,
+            'followers',
+            'user_id',
+            'following_id'
+        );
+    }
+
+    public function followers()
+    {
+        return $this->belongsToMany(
+            User::class,
+            'followers',
+            'following_id',
+            'user_id'
+        );
+    }
+
+    public function tweetsFromFollowing()
+    {
+        return $this->hasManyThrough(
+            Tweet::class,
+            Follower::class,
+            'user_id',
+            'user_id',
+            'id',
+            'following_id'
+        );
+    }
+
+    public function likes()
+    {
+        return $this->hasMany(Like::class);
+    }
 }
