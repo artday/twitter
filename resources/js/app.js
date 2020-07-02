@@ -49,3 +49,7 @@ const app = new Vue({
     el: '#app',
     store
 });
+
+Echo.channel('tweets').listen('.TweetLikesWereUpdated', (e) => {
+    store.commit('timeline/SET_LIKES', e)
+})
