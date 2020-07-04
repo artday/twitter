@@ -24,11 +24,21 @@ class TweetCollection extends ResourceCollection
 
     public function with($request)
     {
-        return [
+        $user = $request->user();
+
+        $meta = [
             'meta' => [
-                'likes' => $this->likes($request->user())
+                'likes' => [],
+                'retweets' => []
             ]
         ];
+
+        if ($user) {
+            $meta['meta']['likes'] = $this->likes($user);
+            $meta['meta']['retweets'] = $this->retweets($user);
+        }
+
+        return $meta;
     }
 
     protected function likes($user)
