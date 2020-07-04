@@ -11,7 +11,7 @@
                             1 0 0 1-2 0 4 4 0 0 1 4-4h12.59l-2.3-2.3a1 1 0 1 1
                             1.42-1.4l4 4a1 1 0 0 1 0 1.4l-4 4a1 1 0 0 1-1.42-1.4L18.6 8H6z"/>
                 </svg>
-                <span class="text-gray-600">0</span>
+                <span class="text-gray-600">{{ tweet.retweets_count }}</span>
             </a>
         </template>
         <app-dropdown-item>
@@ -25,6 +25,11 @@
 
 <script>
     export default {
-        methods: {}
+        props: {
+            tweet: {
+                required: true,
+                type: Object
+            }
+        },
     }
 </script>
