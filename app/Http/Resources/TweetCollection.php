@@ -51,4 +51,15 @@ class TweetCollection extends ResourceCollection
             )
             ->pluck('tweet_id')->toArray();
     }
+
+    protected function retweets($user)
+    {
+        return $user->retweets()
+            ->whereIn(
+                'original_tweet_id',
+                $this->collection->pluck('id')
+                    ->merge($this->collection->pluck('original_tweet_id'))
+            )
+            ->pluck('original_tweet_id')->toArray();
+    }
 }
