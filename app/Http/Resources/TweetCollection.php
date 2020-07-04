@@ -24,17 +24,42 @@ class TweetCollection extends ResourceCollection
 
     public function with($request)
     {
-        return [
+        $user = $request->user();
+
+        $meta = [
             'meta' => [
-                'likes' => $this->likes($request->user())
+                'likes' => [],
+                'retweets' => []
             ]
         ];
+
+        if ($user) {
+            $meta['meta']['likes'] = $this->likes($user);
+            $meta['meta']['retweets'] = $this->retweets($user);
+        }
+
+        return $meta;
     }
 
     protected function likes($user)
     {
-        return !$user ? []  : $user->likes()
-            ->whereIn('tweet_id', $this->collection->pluck('id'))
+        return $user->likes()
+            ->whereIn(
+                'tweet_id',
+                $this->collection->pluck('id')
+                    ->merge($this->collection->pluck('original_tweet_id'))
+            )
             ->pluck('tweet_id')->toArray();
+    }
+
+    protected function retweets($user)
+    {
+        return $user->retweets()
+            ->whereIn(
+                'original_tweet_id',
+                $this->collection->pluck('id')
+                    ->merge($this->collection->pluck('original_tweet_id'))
+            )
+            ->pluck('original_tweet_id')->toArray();
     }
 }
