@@ -43,8 +43,12 @@ class TweetCollection extends ResourceCollection
 
     protected function likes($user)
     {
-        return !$user ? []  : $user->likes()
-            ->whereIn('tweet_id', $this->collection->pluck('id'))
+        return $user->likes()
+            ->whereIn(
+                'tweet_id',
+                $this->collection->pluck('id')
+                    ->merge($this->collection->pluck('original_tweet_id'))
+            )
             ->pluck('tweet_id')->toArray();
     }
 }
